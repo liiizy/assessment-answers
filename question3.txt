@@ -1,0 +1,37 @@
+Stack trace:
+
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at java.base/java.lang.AbstractStringBuilder.<init>(AbstractStringBuilder.java:88)
+        at java.base/java.lang.StringBuilder.<init>(StringBuilder.java:115)
+        at Util.randomBody(SmallMemoryMessageTest.java:123)
+        at Util.random(SmallMemoryMessageTest.java:99)
+        at SmallMemoryMessageTest.main(SmallMemoryMessageTest.java:75)
+
+Answer (Refer to SmallMemoryMessageTest.java for full code):
+
+public class SmallMemoryMessageTest {
+    public static void main(String[] args) {
+        MessageProcessor processor = Util.createMessageProcessor();
+        MessageArchiver archiver = Util.createMessageArchiver();
+        List<Message> messages = new ArrayList<>();
+        for (int i = 0; i < Util.EXPECTED_TOTAL; i++) {
+            Message msg = Util.random();
+            processor.processMessage(msg);
+            messages.add(msg);
+
+            if (messages.size() >= 6000) {
+                archiver.archiveMessages(messages, m -> m.getSubject().startsWith("A"));
+                messages.clear();
+            }
+        }
+        if (!messages.isEmpty()) {
+            archiver.archiveMessages(messages, m -> m.getSubject().startsWith("A"));
+        }
+
+        /*
+         *  DO NOT CHANGE ANYTHING BELOW THIS LINE.
+         *  PROGRAM MUST EXIT SUCCESSFULLY
+         */
+        Util.validate();
+    }
+}

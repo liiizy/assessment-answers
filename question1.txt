@@ -1,0 +1,5 @@
+A ConcurrentModificationException would be thrown since you are trying to remove elements from data while it is currently being looped over. 
+To fix this, we can implement an iterator that would remove elements correctly. 
+The solution should also account for a List that is null and also values in the List that are null, however since the behavior for these edge cases are not specified, if the List is null, an empty List will be returned and if there is a null value in List, it shall be removed. 
+Please look at Example.java for my solution. 
+

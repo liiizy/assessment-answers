@@ -1,0 +1,31 @@
+import java.util.*;
+
+public class IS implements ItemStore {
+    private Map<String,Item> store;
+    
+    public IS() {
+        store = new HashMap<>();
+    }
+
+    public void put(Item item) {
+        store.put(item.getID(), item);
+    }
+
+    public Item get(String id) {
+        return store.get(id);
+    }
+
+    public void dropAllByTag(String tag) {
+        Iterator<Map.entry<String, Item>> iter = store.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.entry<String, Item> key = iter.next();
+            if (key.getValue().getTag().equals(tag)) {
+                iter.remove();
+            }
+        }
+    }
+
+    public int size() {
+        return store.size();
+    }
+}

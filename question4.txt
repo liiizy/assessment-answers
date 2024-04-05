@@ -1,0 +1,49 @@
+In the program, the Integer rating is declared but it is not initialized with a value. 
+When an Integer object is declared, it's default value is null. 
+When the main() method calls on the rating() method, it returns the value of the Integer rating which is null, thus triggering the exception. 
+To fix this, you can either initialize Integer rating with a value or, although this is not good practice and depending on the context, you can also change the data type to int and since it is a primitive data type, it's default value is 0:
+
+Solution 1:
+
+package com.moesol.hr.bugs;
+
+
+public class Bug1 {
+    private Integer rating;
+
+    public Bug1() {
+        this.rating = 0;
+    }
+
+
+    public int rating() {
+        return rating;
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println("rating:"
+            + new Bug1().rating());
+    }
+}
+
+Solution 2:
+
+package com.moesol.hr.bugs;
+
+
+public class Bug1 {
+    private int rating;
+
+
+    public int rating() {
+        return rating;
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println("rating:"
+            + new Bug1().rating());
+    }
+}
+
